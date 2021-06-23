@@ -1,0 +1,11 @@
+name: dqc
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - jupyter
+
