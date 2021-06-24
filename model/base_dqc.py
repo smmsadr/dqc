@@ -370,3 +370,23 @@ def plot_steps(traj, color_selections=None, spherical=True, lims=None, sets=[[0,
         _ = plt.savefig('step_' + str(step) + '.png')
         # plt.show()
         _ = plt.clf()
+
+        
+def reverse_entropy(traj, N_traj):
+    S = np.array(np.zeros(traj.shape[0]))
+
+    for step in range(traj.shape[0]):
+        N_step = np.matrix(np.real(N_traj[step]))
+        psi = np.matrix(np.zeros([traj.shape[1],traj.shape[2]]))
+        for d in range(traj.shape[1]):
+            psi[d,:] = np.matrix(np.real(traj[step][d])).diagonal()
+
+
+        p_i = psi * N_step.T * N_step * psi.T
+        p_i = np.array([np.float(p_i[i]*p_i[i].T) for i in range(traj.shape[1])])
+
+        for p in p_i:
+            if p <= 0:
+                pass
+            S[step] = S[step] - 1/p * np.log(1/p)
+    return S        
