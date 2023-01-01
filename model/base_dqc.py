@@ -327,9 +327,9 @@ def plot_steps(traj, color_selections=None, spherical=True, lims=None, sets=[[0,
         ax = fig.add_subplot(111, projection='3d')
         if color_selections != None:
             for sel, col in color_selections:
-                x = traj[step][0].diagonal()[sel[0]:sel[1]]
-                y = traj[step][1].diagonal()[sel[0]:sel[1]]
-                z = traj[step][2].diagonal()[sel[0]:sel[1]]
+                x = traj[step:step + 1, 0:1, :, :][0][0][0][sel[0]:sel[1]+1]
+                y = traj[step:step + 1, 1:2, :, :][0][0][0][sel[0]:sel[1]+1]
+                z = traj[step:step + 1, 2:3, :, :][0][0][0][sel[0]:sel[1]+1]
                 x = np.real(x).astype(np.float64)
                 y = np.real(y).astype(np.float64)
                 z = np.real(z).astype(np.float64)
